@@ -3,6 +3,7 @@ window.wagtailDraftSharing = {
     const button = event.currentTarget;
     const revisionId = button.dataset.wagtaildraftsharingCreate;
     const originalButtonText = button.textContent;
+    console.log("Creating draft share for revision: ", revisionId);
     const getJSONConfig = (name) => {
       const config = document.querySelector(`script#${name}`);
       if (!config) {
@@ -14,6 +15,7 @@ window.wagtailDraftSharing = {
     const wagtaildraftsharingConfig = getJSONConfig(
       "wagtaildraftsharing-config"
     );
+    console.log("Got wagtailConfig and wagtaildraftsharingConfig");
     fetch(wagtaildraftsharingConfig.urls.create, {
       method: "POST",
       body: `revision=${revisionId}`,
@@ -28,7 +30,9 @@ window.wagtailDraftSharing = {
       .then(async (res) => {
         if (res.ok) {
           const data = await res.json();
+          console.log("Got data: ", data);
           const url = window.location.origin + data.url;
+          console.log("URL: ", url);
           navigator.clipboard.writeText(url).then(() => {
             button.textContent = "Copied!";
             setTimeout(() => {
