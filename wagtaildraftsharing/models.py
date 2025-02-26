@@ -44,6 +44,7 @@ class WagtaildraftsharingLink(models.Model):
         return format_html(
             """<a data-wagtaildraftsharing-url
             class="button button-secondary button-small"
-            target="_blank" rel="noopener noreferrer" href="{}">View</a>""",
+            target="_blank" rel="noopener noreferrer" href="{}"
+            onclick="window.wagtailDraftSharing.copyLinksToClipboard(event)">View</a>""",
             self.url,
         )
